@@ -1,0 +1,44 @@
+---
+const today = new Date();
+---
+
+<footer>
+	<div>
+		<strong>Chillobre</strong>
+		<p>记录编程学习、项目实践和问题排查。</p>
+	</div>
+	<p>&copy; {today.getFullYear()} 保留所有权利。</p>
+</footer>
+
+<style>
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		width: min(1120px, calc(100% - 32px));
+		margin: 0 auto;
+		padding: 1.1rem 0 1.5rem;
+		border-top: 1px solid var(--line);
+		color: var(--text-muted);
+		font-size: 0.92rem;
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	footer strong {
+		color: var(--text);
+	}
+
+	@media (max-width: 720px) {
+		footer {
+			display: block;
+		}
+
+		footer > p {
+			margin-top: 0.75rem;
+		}
+	}
+</style>

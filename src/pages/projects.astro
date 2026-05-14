@@ -1,0 +1,142 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const projects = [
+	{
+		name: 'Chillobre Blog',
+		status: '进行中',
+		description: '基于 Astro 搭建的个人技术博客，用来记录文章、项目和学习过程。',
+		tags: ['Astro', 'Markdown', '个人网站'],
+	},
+	{
+		name: '项目复盘记录',
+		status: '整理中',
+		description: '后续会把课程项目、实验项目或个人练习整理成更清楚的项目记录。',
+		tags: ['复盘', '工程实践', '记录'],
+	},
+	{
+		name: '工具与环境笔记',
+		status: '计划中',
+		description: '整理开发环境配置、常用工具、报错排查和效率提升相关内容。',
+		tags: ['工具', '环境配置', 'Debug'],
+	},
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`项目 - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-title">
+				<p class="eyebrow">Projects</p>
+				<h1>项目</h1>
+				<p>这里会放我正在做、已经完成，或者值得复盘的项目。现在先放一个基础结构，后面可以慢慢补充真实内容。</p>
+			</section>
+
+			<ul class="project-grid">
+				{
+					projects.map((project) => (
+						<li class="project-card">
+							<div class="project-card-head">
+								<h2>{project.name}</h2>
+								<span>{project.status}</span>
+							</div>
+							<p>{project.description}</p>
+							<ul class="tag-list">
+								{project.tags.map((tag) => (
+									<li>{tag}</li>
+								))}
+							</ul>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.page-title {
+		max-width: 760px;
+		margin-bottom: 2rem;
+	}
+
+	.page-title p:last-child {
+		color: var(--text-muted);
+	}
+
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.project-card {
+		padding: 1.25rem;
+		border: 1px solid var(--line);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.82);
+		box-shadow: 0 8px 24px rgba(43, 111, 161, 0.07);
+	}
+
+	.project-card-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.project-card h2 {
+		font-size: 1.2rem;
+	}
+
+	.project-card-head span {
+		flex: 0 0 auto;
+		padding: 0.2rem 0.55rem;
+		border-radius: 999px;
+		background: var(--surface-muted);
+		color: var(--accent-strong);
+		font-size: 0.78rem;
+		font-weight: 800;
+	}
+
+	.project-card p {
+		color: var(--text-muted);
+	}
+
+	.tag-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tag-list li {
+		padding: 0.25rem 0.55rem;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.72);
+		color: var(--text-muted);
+		font-size: 0.82rem;
+	}
+
+	@media (max-width: 900px) {
+		.project-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

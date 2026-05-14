@@ -1,0 +1,282 @@
+:root {
+	--bg: #eef9ff;
+	--surface: #ffffff;
+	--surface-muted: #e5fbf6;
+	--text: #16233a;
+	--text-muted: #5c7084;
+	--line: #b9e9f3;
+	--accent: #1aa7ec;
+	--accent-strong: #0877b5;
+	--mint: #23cfa7;
+	--cream: #d9fff4;
+	--code-bg: #e8f7ff;
+	--shadow: 0 18px 45px rgba(17, 137, 194, 0.14);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background:
+		radial-gradient(circle at top left, rgba(35, 207, 167, 0.28), transparent 28rem),
+		radial-gradient(circle at 90% 8%, rgba(26, 167, 236, 0.22), transparent 28rem),
+		var(--bg);
+	color: var(--text);
+	font-family:
+		Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		"Microsoft YaHei", sans-serif;
+	font-size: 18px;
+	line-height: 1.7;
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+main {
+	width: min(1120px, calc(100% - 32px));
+	margin: 0 auto;
+	padding: 36px 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 0.6rem;
+	color: var(--text);
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: clamp(1.8rem, 3.4vw, 2.75rem);
+}
+
+h2 {
+	font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+h3 {
+	font-size: 1.35rem;
+}
+
+h4 {
+	font-size: 1.1rem;
+}
+
+p {
+	margin: 0 0 1rem;
+}
+
+a {
+	color: var(--accent-strong);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+}
+
+a:hover {
+	color: var(--accent);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+code {
+	padding: 0.15rem 0.35rem;
+	border-radius: 6px;
+	background: var(--code-bg);
+	color: var(--accent-strong);
+	font-size: 0.92em;
+}
+
+pre {
+	overflow-x: auto;
+	padding: 1.25rem;
+	border-radius: 8px;
+	background: #142033;
+}
+
+pre > code {
+	all: unset;
+	color: #f9fafb;
+}
+
+blockquote {
+	margin: 1.5rem 0;
+	padding: 0.25rem 0 0.25rem 1.25rem;
+	border-left: 4px solid var(--accent);
+	color: var(--text-muted);
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--line);
+}
+
+.eyebrow {
+	margin-bottom: 0.75rem;
+	color: var(--accent-strong);
+	font-size: 0.78rem;
+	font-weight: 800;
+	letter-spacing: 0;
+}
+
+.muted {
+	color: var(--text-muted);
+}
+
+.pill-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.55rem;
+	margin: 1.3rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.pill-list li {
+	padding: 0.32rem 0.7rem;
+	border: 1px solid var(--line);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.78);
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+.button-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.55rem;
+}
+
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 44px;
+	padding: 0.65rem 1rem;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--surface);
+	color: var(--text);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.button.primary {
+	border-color: var(--accent);
+	background: linear-gradient(135deg, var(--accent), var(--mint));
+	color: #ffffff;
+}
+
+.section-heading {
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 1rem;
+	margin: 4rem 0 1.25rem;
+}
+
+.article-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.article-card {
+	overflow: hidden;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--surface);
+	box-shadow: 0 8px 24px rgba(17, 137, 194, 0.08);
+}
+
+.article-card a {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	height: 100%;
+	color: inherit;
+	text-decoration: none;
+}
+
+.article-card img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: 0;
+}
+
+.article-card-content {
+	padding: 1rem;
+}
+
+.article-card h3,
+.article-card h4 {
+	margin-bottom: 0.35rem;
+}
+
+.article-card p {
+	color: var(--text-muted);
+	font-size: 0.95rem;
+	line-height: 1.65;
+}
+
+.article-card:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow);
+	transition: 0.18s ease;
+}
+
+.info-note {
+	padding: 1rem 1.1rem;
+	border: 1px dashed var(--accent);
+	border-radius: 8px;
+	background: rgba(229, 251, 246, 0.78);
+	color: var(--text-muted);
+}
+
+.sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	border: 0;
+	white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+	body {
+		font-size: 17px;
+	}
+
+	main {
+		width: min(100% - 24px, 720px);
+		padding-top: 24px;
+	}
+
+	.section-heading {
+		display: block;
+	}
+
+	.article-grid {
+		grid-template-columns: 1fr;
+	}
+}
