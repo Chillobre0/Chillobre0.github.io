@@ -1,4 +1,4 @@
----
+﻿---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
@@ -23,9 +23,8 @@ import HeaderLink from './HeaderLink.astro';
 		position: sticky;
 		top: 0;
 		z-index: 10;
-		border-bottom: 1px solid var(--line);
-		background: rgba(255, 255, 255, 0.86);
-		backdrop-filter: blur(16px);
+		border-bottom: 0;
+		background: #dff1f5;
 	}
 
 	nav {
@@ -50,10 +49,10 @@ import HeaderLink from './HeaderLink.astro';
 	.brand img {
 		width: 34px;
 		height: 34px;
-		border: 2px solid var(--surface);
+		border: 2px solid #d7e6f7;
 		border-radius: 50%;
 		object-fit: cover;
-		box-shadow: 0 0 0 1px var(--line);
+		box-shadow: 0 0 0 1px #9eb9d8;
 	}
 
 	.internal-links {
@@ -64,8 +63,8 @@ import HeaderLink from './HeaderLink.astro';
 
 	.internal-links a {
 		padding: 0.45rem 0.7rem;
-		border-radius: 8px;
-		color: var(--text-muted);
+		border-radius: 10px;
+		color: #516982;
 		font-size: 0.95rem;
 		font-weight: 700;
 		text-decoration: none;
@@ -73,8 +72,8 @@ import HeaderLink from './HeaderLink.astro';
 
 	.internal-links a:hover,
 	.internal-links a.active {
-		background: var(--surface-muted);
-		color: var(--text);
+		background: #3d6fb4;
+		color: #f4f8fc;
 	}
 
 	@media (max-width: 620px) {
@@ -92,3 +91,4 @@ import HeaderLink from './HeaderLink.astro';
 		}
 	}
 </style>
+
