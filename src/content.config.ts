@@ -10,11 +10,12 @@ const blog = defineCollection({
 		z.object({
 			title: z.string(),
 			description: z.string(),
-			// Transform string to Date object
+			category: z.enum(['日常感想', '考研记录', '实习记录']).default('日常感想'),
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
 		}),
+
 });
 
 export const collections = { blog };
