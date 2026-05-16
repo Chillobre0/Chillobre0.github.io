@@ -12,9 +12,11 @@ type Heading = {
 	text: string;
 };
 
-type Props = CollectionEntry<'blog'>['data'] & {
+type Props = Omit<CollectionEntry<'blog'>['data'], 'category'> & {
+	category?: CollectionEntry<'blog'>['data']['category'];
 	headings?: Heading[];
 };
+
 
 const { title, description, pubDate, updatedDate, heroImage, headings = [] } = Astro.props;
 const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
@@ -190,20 +192,60 @@ const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.
 		color: #17304f;
 	}
 
-	.prose p,
+	.prose :global(.info-note) {
+		background: #315f9c;
+		color: #d7e4f2;
+	}
+
+	/* .prose p,
 	.prose ul,
 	.prose ol,
 	.prose li {
 		color: #17304f;
+		font-size: 0.95rem;
+		line-height: 1.85;
+	} */
+	.prose :global(p),
+	.prose :global(ul),
+	.prose :global(ol),
+	.prose :global(li) {
+		color: #17304f;
+		font-size: 1.1rem;
+		line-height: 1.85;
 	}
 
-	.prose h1,
+
+
+	/* .prose h1,
 	.prose h2,
 	.prose h3,
 	.prose h4 {
+		margin-top: 1rem;
+		color: #17304f;
+	}
+
+
+	.prose h2 {
+		font-size: 1.65rem;
+	} */
+
+
+	.prose :global(h1),
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4) {
 		margin-top: 2.1rem;
 		color: #17304f;
 	}
+
+	.prose :global(h2) {
+		font-size: 1.55rem;
+	}
+
+	.prose :global(h3) {
+		font-size: 1.2rem;
+	}
+
 
 	.prose a {
 		color: #214f88;

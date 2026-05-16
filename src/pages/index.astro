@@ -3,12 +3,23 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
 
 const navItems = [
 	{ icon: '01', text: '文章', href: '/blog/' },
 	{ icon: '02', text: '项目', href: '/projects/' },
 	{ icon: '03', text: '关于', href: '/about/' },
 ];
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const latestPost = posts[0];
+
+
+
 ---
 
 <!doctype html>
@@ -19,30 +30,49 @@ const navItems = [
 	<body>
 		<Header />
 		<main class="dashboard">
-			<section class="side-card card">
-				<div class="brand-row">
-					<img src="/avatar.jpg" alt="Chillobre 的头像" />
-					<div>
-						<h1>Chillobre</h1>
-						<p>个人博客目录</p>
+			<div class="left-column">
+				<section class="side-card card">
+					<div class="brand-row">
+						<img src="/avatar.jpg" alt="Chillobre 的头像" />
+						<div>
+							<h1>Chillobre</h1>
+							<p>个人博客目录</p>
+						</div>
 					</div>
-				</div>
 
-				<nav class="side-nav" aria-label="首页导航">
-					{
-						navItems.map((item) => (
-							<a href={item.href}>
-								<span>{item.icon}</span>
-								{item.text}
-							</a>
-						))
-					}
-				</nav>
-			</section>
+					<nav class="side-nav" aria-label="首页导航">
+						{
+							navItems.map((item) => (
+								<a href={item.href}>
+									<span>{item.icon}</span>
+									{item.text}
+								</a>
+							))
+						}
+					</nav>
+				</section>
+
+				<section class="music-card card">
+					<div class="music-icon">♪</div>
+
+					<div class="music-main">
+						<p>今日 BGM</p>
+						<strong>遗憾</strong>
+
+						<button class="music-progress" id="music-progress" type="button" aria-label="调整音乐播放进度">
+							<span id="music-progress-bar"></span>
+						</button>
+					</div>
+
+					<button class="music-play" id="music-toggle" type="button" aria-label="播放音乐">▶</button>
+
+					<audio id="bgm-audio" src="/music/pity.mp3"></audio>
+				</section>
+			</div>
 
 			<section class="hero-card card">
 				<img src="/avatar.jpg" alt="Chillobre 的头像" />
-				<p class="eyebrow">Welcome</p>
+				<p class="eyebrow">——————Welcome——————</p>
 				<h2>Hello</h2>
 				<h2>I'm Chillobre</h2>
 				<p class="hero-desc">
@@ -61,76 +91,37 @@ const navItems = [
 				</div>
 			</section>
 
-			<section class="quote-card card">
-				<p>悟已往之不谏，知来者之可追。实迷途其未远，觉今是而昨非。</p>
-			</section>
+			<div class="right-column">
+				<section class="quote-card card">
+					<p>悟已往之不谏，知来者之可追。实迷途其未远，觉今是而昨非。</p>
+				</section>
 
-			<!-- <section class="music-card card">
-				<div class="music-icon">♪</div>
-				<div>
-					<p>今日 BGM</p>
-					<strong>遗憾</strong>
-				</div>
-
-				<button id="music-toggle" type="button" aria-label="播放音乐">▶</button>
-				<audio id="bgm-audio" src="/music/pity.mp3"></audio>
-			</section> -->
-			<section class="music-card card">
-				<div class="music-icon">♪</div>
-
-				<div class="music-main">
-					<p>今日 BGM</p>
-					<strong>遗憾</strong>
-
-					<button class="music-progress" id="music-progress" type="button" aria-label="调整音乐播放进度">
-						<span id="music-progress-bar"></span>
-					</button>
-
-				</div>
-
-				<button class="music-play" id="music-toggle" type="button" aria-label="播放音乐">▶</button>
-
-				<audio id="bgm-audio" src="/music/pity.mp3"></audio>
-			</section>
-
-
-			<a class="latest-card card card-link" href="/blog/why-build-blog/">
-				<p>最新文章</p>
-				<h3>我为什么重新搭建个人博客</h3>
-				<span>记录重新开始搭建个人博客的原因。</span>
-			</a>
-
-			<a class="recommend-card card card-link" href="/blog/howto/">
-				<p>推荐文章</p>
-				<h3>怎么修改我的博客呢</h3>
-				<span>push的方法。</span>
-			</a>
-
-			<a class="project-card card card-link" href="/projects/">
-				<p>当前项目</p>
-				<h3>Chillobre Blog</h3>
-				<span>基于 Astro 的个人网站，正在持续完善中。</span>
-			</a>
-		</main>
-		<Footer />
-		<!-- <script>
-			const audio = document.querySelector('#bgm-audio');
-			const button = document.querySelector('#music-toggle');
-
-			button?.addEventListener('click', () => {
-				if (!(audio instanceof HTMLAudioElement)) return;
-
-				if (audio.paused) {
-					audio.play();
-					button.textContent = 'Ⅱ';
-					button.setAttribute('aria-label', '暂停音乐');
-				} else {
-					audio.pause();
-					button.textContent = '▶';
-					button.setAttribute('aria-label', '播放音乐');
+				{
+					latestPost && (
+						<a class="latest-card card card-link" href={`/blog/${latestPost.id}/`}>
+							<p>最新文章</p>
+							<h3>{latestPost.data.title}</h3>
+							<span>{latestPost.data.description}</span>
+						</a>
+					)
 				}
-			});
-		</script> -->
+
+				<a class="recommend-card card card-link" href="/blog/howto/">
+					<p>推荐文章</p>
+					<h3>怎么修改我的博客呢</h3>
+					<span>push 的方法。</span>
+				</a>
+
+				<a class="project-card card card-link" href="/projects/">
+					<p>当前项目</p>
+					<h3>Chillobre Blog</h3>
+					<span>基于 Astro 的个人网站，正在持续完善中。</span>
+				</a>
+			</div>
+		</main>
+
+		<Footer />
+
 		<script>
 			const audio = document.querySelector('#bgm-audio');
 			const button = document.querySelector('#music-toggle');
@@ -203,18 +194,20 @@ const navItems = [
 	.dashboard {
 		display: grid;
 		grid-template-columns: 300px 460px 360px;
-		grid-template-rows: 90px 135px 135px 160px;
-		grid-template-areas:
-			"side hero quote"
-			"side hero latest"
-			"side hero recommend"
-			"music hero project";
 		gap: 1.25rem;
-		align-items: stretch;
+		align-items: center;
 		justify-content: center;
 		min-height: calc(100vh - 150px);
 		padding: 32px 0;
 	}
+
+	.left-column,
+	.right-column {
+		display: grid;
+		gap: 1.25rem;
+		align-content: center;
+	}
+
 
 	.card {
 		position: relative;
@@ -241,63 +234,56 @@ const navItems = [
 		color: inherit;
 		text-decoration: none;
 	}
+ 
 
+	/* 修改长度 */
 	.side-card {
-		grid-area: side;
 		padding: 1.45rem;
-		background: #3d6fb4;
-	}
-
-	.hero-card {
-		grid-area: hero;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 2rem;
-		background: #3d6fb4;
-		text-align: center;
-	}
-
-	.quote-card {
-		grid-area: quote;
-		display: flex;
-		align-items: center;
-		padding: 0.95rem 1.25rem;
+		min-height: 360px;
 		background: #3d6fb4;
 	}
 
 	.music-card {
-		grid-area: music;
 		display: flex;
 		align-items: center;
 		gap: 0.85rem;
 		padding: 1.15rem;
-		align-self: start;
-		min-height: 120px;
+		min-height: 145px;
 		background: #315f9c;
 	}
 
+	.hero-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 600px;
+		padding: 2rem;
+		text-align: center;
+		background: #3d6fb4;
+	}
+
+	.quote-card {
+		display: flex;
+		align-items: center;
+		min-height: 95px;
+		padding: 0.95rem 1.25rem;
+		background: #3d6fb4;
+	}
+
 	.latest-card,
-	.recommend-card,
-	.project-card {
-		padding: 1.15rem 1.25rem;
-		background: #3d6fb4;
-	}
-
-	.latest-card {
-		grid-area: latest;
-	}
-
 	.recommend-card {
-		grid-area: recommend;
+		padding: 1.15rem 1.25rem;
+		min-height: 135px;
+		background: #3d6fb4;
 	}
 
 	.project-card {
-		grid-area: project;
 		padding: 1.45rem 1.35rem;
+		min-height: 150px;
 		background: #3d6fb4;
 	}
+
 
 	.brand-row {
 		display: flex;
